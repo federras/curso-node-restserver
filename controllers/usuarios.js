@@ -28,7 +28,6 @@ usuariosGet = async (req = request, res = response) => {
     });
 }
 
-
 usuariosPut = async (req = request, res = response) => {
 
     const { id } = req.params;
@@ -82,10 +81,13 @@ usuariosDelete = async (req = request, res = response) => {
 
     // Borramos Lógicamente, así es mejor
     const usuario = await Usuario.findByIdAndUpdate( id, { estado: false });
+    
+    const usuarioAutenticado = req.usuarioAutenticado;
 
     res.json({
         'msje': 'Usuario Borrado - desde controller',
-        usuario
+        usuario,
+        usuarioAutenticado
     })
 }
 

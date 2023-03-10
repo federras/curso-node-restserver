@@ -34,7 +34,8 @@ const UsuarioSchema = Schema({
 
 //Sobreescribimos metodo por defecto para que devuelva el objeto con menos campos
 UsuarioSchema.methods.toJSON = function() {
-    const { __v, password, ...usuario } = this.toObject();
+    const { __v, password, _id, ...usuario } = this.toObject();
+    usuario.uid = _id;
     return usuario;
 }
 
