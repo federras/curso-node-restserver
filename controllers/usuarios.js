@@ -51,7 +51,7 @@ usuariosPut = async (req = request, res = response) => {
 
 usuariosPost = async(req, res = response) => {
 
-     const { nombre, correo, password, rol } = req.body;
+    const { nombre, correo, password, rol } = req.body;
     const usuario = new Usuario({ nombre, correo, password, rol });
 
     // Encriptar contraseña

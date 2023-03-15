@@ -7,6 +7,62 @@
     <title>A VERGA MOTA</title>
 </head>
 <body>
-    <h1> A VERGA MOTTA </h1>
+    <h1> A VERGA MOTTA - Sign-in </h1>
+    <hr>
+
+    <div id="g_id_onload"
+        data-client_id = "361798452062-evk61h6c4ffdrl0mhhf3gt1illovcc94.apps.googleusercontent.com"
+        data-context="signin"
+        data-auto_prompt="false"
+        data-callback="handleCredentialResponse">
+    </div>
+    <div class="g_id_signin"
+        data-type="standard"
+        data-size="large"
+        data-theme="outline"
+        data-text="sign_in_with"
+        data-shape="rectangular"
+        data-logo_alignment="left">
+    </div>
+    <button id="signout_button">Logout</button>
+
+    
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    
+    <script>
+
+        const button = document.getElementById('signout_button');
+        button.onclick = () => {
+
+            google.accounts.id.disableAutoSelect();
+            google.accounts.id.revoke( localStorage.getItem( 'email' ), done => {
+                localStorage.clear();
+                location.reload();
+            });
+        }
+
+        function handleCredentialResponse(response) {
+           // Google Token : ID Token
+           const body = {id_token: response.credential};
+
+            fetch("http://localhost:8080/api/auth/google", {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(body)
+
+                })
+                .then( r => r.json() )
+                .then( (resp) => {
+                    console.log(resp)
+                    localStorage.setItem( 'email', resp.usuario.correo ) //guardamos el correo en localstorage para poder hacer logout
+                })
+                .catch( console.warn );
+
+        }
+    </script>
+
 </body>
 </html>
