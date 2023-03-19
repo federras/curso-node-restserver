@@ -17,8 +17,8 @@ usuariosGet = async (req = request, res = response) => {
     // Mismo código anterior, más eficiente, al hacer que las dos promesas se procecen en paralelo
     const [ usuarios, total ] = await Promise.all([
         Usuario.find( query )
-            .skip( desde )
-            .limit( limite ),
+            .skip( Number(desde) )
+            .limit( Number(limite) ),
         Usuario.countDocuments( query )
     ])
 
@@ -39,7 +39,7 @@ usuariosPut = async (req = request, res = response) => {
         resto.password = bcrypt.hashSync(password, salt);
     }
 
-    const usuario = await Usuario.findByIdAndUpdate( id, resto );
+    const usuario = await Usuario.findByIdAndUpdate( id, resto, { new: true } ); // con new: true, actualizamos la respuesta del json
 
     res.json({
         'msje': 'Put API - desde controller',

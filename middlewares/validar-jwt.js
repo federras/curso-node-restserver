@@ -11,9 +11,7 @@ const validarJWT = async( req = request, res = response, next) => {
             mge: "No hay token en la petición"
         });
     };
-
-    console.log(req.token);   
-    
+   
     try {
 
         // La siguiente funcion Verifica el jwt.

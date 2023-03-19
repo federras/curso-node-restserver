@@ -1,5 +1,7 @@
-const Role = require('../models/role');
-const Usuario = require('../models/usuario')
+const { check } = require('express-validator');
+const { Categoria, Usuario, Role, Producto } = require('../models');
+// const Role = require('../models/role');
+// const Usuario = require('../models/usuario')
 
 
 const esRolValido = async ( role = '') => {
@@ -26,8 +28,25 @@ const idExiste = async ( id = '') => {
     }
 }
 
+const categoriaExiste = async ( id = '' ) => {
+    const existeCategoria = await Categoria.findById( id );
+    if ( !existeCategoria ) {
+        throw new Error('El id de categoria ingresado no existe en la base de datos')
+    }
+}
+
+const productoPorIdExiste = async ( id = '' ) => {
+    const existeProducto = await Producto.findById( id );
+    if ( !existeProducto ) {
+        throw new Error('El id del producto ingresado no existe en la base de datos')
+    }
+}
+
+
 module.exports = {
     esRolValido,
     emailExiste,
-    idExiste
+    idExiste,
+    categoriaExiste,
+    productoPorIdExiste
 }
