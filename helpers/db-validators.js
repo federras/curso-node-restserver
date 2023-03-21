@@ -42,11 +42,20 @@ const productoPorIdExiste = async ( id = '' ) => {
     }
 }
 
+const esColeccionValida = ( coleccion = '', colecciones = []) => {
+    const esValida = colecciones.includes(coleccion);
+    if (!esValida) {
+        throw new Error (`La colección ${coleccion} no es válida, debe ser una de las siguientes: ${colecciones}`)
+    }
+    return true;
+}
+
 
 module.exports = {
-    esRolValido,
+    esRolValido,   
     emailExiste,
     idExiste,
     categoriaExiste,
-    productoPorIdExiste
+    productoPorIdExiste,
+    esColeccionValida
 }

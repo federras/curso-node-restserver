@@ -26,7 +26,8 @@ const ProductoSchema = Schema({
         required: true
     },
     descripcion: { type: String },
-    disponible: { type: Boolean, default: true }
+    disponible: { type: Boolean, default: true },
+    img: { type: String }
 })
 
 //Sobreescribimos metodo por defecto para que devuelva el objeto con menos campos
